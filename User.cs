@@ -11,7 +11,7 @@ namespace MovieListingApp
         // public logged in variable to handle logged in user
         public static string loggedInUser;
         // public dictionary of users
-        public static Dictionary<string, User> users = new Dictionary<string, User>();
+        public static Dictionary<string, User> userDatabase = new Dictionary<string, User>();
 
         public string Username { get; }
         public string Password { get; set; }

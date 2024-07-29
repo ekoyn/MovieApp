@@ -15,7 +15,7 @@ namespace MovieListingApp
     public partial class ViewAllForm : Form
     {
         // string array to hold usernames
-        string[] userKeys = new string[User.users.Count];
+        string[] userKeys = new string[User.userDatabase.Count];
 
         public ViewAllForm()
         {
@@ -43,10 +43,10 @@ namespace MovieListingApp
             allUsersListBox.Items.Clear();
 
             int counter = 0;
-            foreach (string user in User.users.Keys)
+            foreach (string user in User.userDatabase.Keys)
             {
                 string userAdmin;
-                if (User.users[user].Admin)
+                if (User.userDatabase[user].Admin)
                 {
                     userAdmin = "admin";
                 }
@@ -54,7 +54,7 @@ namespace MovieListingApp
                 {
                     userAdmin = "user";
                 }
-                allUsersListBox.Items.Add($"{User.users[user].Username} - {User.users[user].FirstName} {User.users[user].LastName} - {userAdmin}");
+                allUsersListBox.Items.Add($"{User.userDatabase[user].Username} - {User.userDatabase[user].FirstName} {User.userDatabase[user].LastName} - {userAdmin}");
 
                 userKeys[counter] = user;
                 counter++;
@@ -68,10 +68,10 @@ namespace MovieListingApp
             {
                 int currentIndex = allUsersListBox.SelectedIndex;
                 allUsersListBox.SelectedIndex = -1;
-                if (User.users[userKeys[currentIndex]] != User.users[User.loggedInUser])
+                if (User.userDatabase[userKeys[currentIndex]] != User.userDatabase[User.loggedInUser])
                 {
                     allUsersListBox.Items.RemoveAt(currentIndex);
-                    User.users.Remove(userKeys[currentIndex]);
+                    User.userDatabase.Remove(userKeys[currentIndex]);
                     LoadUsers();
 
                 }

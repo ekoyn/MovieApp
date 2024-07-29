@@ -20,7 +20,7 @@ namespace MovieListingApp
         // load favorites from user
         private void LoadFavorites()
         {
-            foreach (Movie movie in User.users[User.loggedInUser].Favorites)
+            foreach (Movie movie in User.userDatabase[User.loggedInUser].Favorites)
             {
                 favoriteListBox.Items.Add(movie.Title);
             }
@@ -51,12 +51,12 @@ namespace MovieListingApp
             if (favoriteListBox.SelectedIndex != -1)
             {
                 int currentIndex = favoriteListBox.SelectedIndex;
-                titleTB.Text = User.users[User.loggedInUser].Favorites[currentIndex].Title;
-                genreTB.Text = User.users[User.loggedInUser].Favorites[currentIndex].Genre.ToString();
-                yearTB.Text = User.users[User.loggedInUser].Favorites[currentIndex].Year.ToString();
-                durationTB.Text = User.users[User.loggedInUser].Favorites[currentIndex].Duration;
-                descriptionTB.Text = User.users[User.loggedInUser].Favorites[currentIndex].Description;
-                ratingTB.Text = CalculateAverageRating(User.users[User.loggedInUser].Favorites[currentIndex]).ToString("N1");
+                titleTB.Text = User.userDatabase[User.loggedInUser].Favorites[currentIndex].Title;
+                genreTB.Text = User.userDatabase[User.loggedInUser].Favorites[currentIndex].Genre.ToString();
+                yearTB.Text = User.userDatabase[User.loggedInUser].Favorites[currentIndex].Year.ToString();
+                durationTB.Text = User.userDatabase[User.loggedInUser].Favorites[currentIndex].Duration;
+                descriptionTB.Text = User.userDatabase[User.loggedInUser].Favorites[currentIndex].Description;
+                ratingTB.Text = CalculateAverageRating(User.userDatabase[User.loggedInUser].Favorites[currentIndex]).ToString("N1");
             }
         }
     }

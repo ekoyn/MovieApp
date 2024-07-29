@@ -8,9 +8,9 @@ namespace MovieListingApp
         public LoginForm()
         {
             InitializeComponent();
-            if (!User.users.ContainsKey("movieUser"))
+            if (!User.userDatabase.ContainsKey("movieUser"))
             {
-                User.users.Add("movieUser", new User
+                User.userDatabase.Add("movieUser", new User
                 (
                     "movieUser",
                     "user0123",
@@ -20,9 +20,9 @@ namespace MovieListingApp
                     false
                 ));
             }
-            if (!User.users.ContainsKey("admin"))
+            if (!User.userDatabase.ContainsKey("admin"))
             {
-                User.users.Add("admin", new User
+                User.userDatabase.Add("admin", new User
                 (
                     "admin",
                     "admin0123",
@@ -55,9 +55,9 @@ namespace MovieListingApp
 
             // credential check
             // checks against admin data first
-            if (User.users.ContainsKey(userName))
+            if (User.userDatabase.ContainsKey(userName))
             {
-                if (password == User.users[userName].Password)
+                if (password == User.userDatabase[userName].Password)
                 {
                     User.loggedInUser = userName;
                     // loads movies into movie list
@@ -92,7 +92,7 @@ namespace MovieListingApp
         {
             if (LoginUser())
             {
-                if (User.users[User.loggedInUser].Admin)
+                if (User.userDatabase[User.loggedInUser].Admin)
                 {
                     ClearForm();
                     // this.Hide();

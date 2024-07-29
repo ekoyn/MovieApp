@@ -27,7 +27,7 @@ namespace MovieListingApp
             LoadMovies();
 
             // set buttons and field status based on user status
-            if (User.users[User.loggedInUser].Admin)
+            if (User.userDatabase[User.loggedInUser].Admin)
             {
                 deleteButton.Visible = true;
                 titleTB.ReadOnly = false;
@@ -131,9 +131,9 @@ namespace MovieListingApp
                 descriptionTB.Text = "";
                 ratingTB.Text = "";
                 Movie movieToDelete = Movie.movies[currentIndex];
-                if (User.users[User.loggedInUser].Favorites.Contains(movieToDelete))
+                if (User.userDatabase[User.loggedInUser].Favorites.Contains(movieToDelete))
                 {
-                    User.users[User.loggedInUser].Favorites.Remove(movieToDelete);
+                    User.userDatabase[User.loggedInUser].Favorites.Remove(movieToDelete);
                 }
                 movieListBox.Items.RemoveAt(currentIndex);
                 Movie.movies.RemoveAt(currentIndex);
@@ -212,12 +212,15 @@ namespace MovieListingApp
             MessageBox.Show("Results:" + Environment.NewLine + resultString);
 
             // set selected index to a search result item
-            for (int i = 0; i < movieListBox.Items.Count; i++)
+            if (results.Count > 0)
             {
-                if (movieListBox.Items[i].ToString().Equals(results[0], StringComparison.OrdinalIgnoreCase))
+                for (int i = 0; i < movieListBox.Items.Count; i++)
                 {
-                    movieListBox.SelectedIndex = i;
-                    break;
+                    if (movieListBox.Items[i].ToString().Equals(results[0], StringComparison.OrdinalIgnoreCase))
+                    {
+                        movieListBox.SelectedIndex = i;
+                        break;
+                    }
                 }
             }
 
@@ -358,9 +361,9 @@ namespace MovieListingApp
                 string movieTitle = movieListBox.SelectedItem.ToString();
 
                 // ensure movie isn't already in favorites
-                if (!User.users[User.loggedInUser].Favorites.Any(m => m.Title.Equals(movieTitle)))
+                if (!User.userDatabase[User.loggedInUser].Favorites.Any(m => m.Title.Equals(movieTitle)))
                 {
-                    User.users[User.loggedInUser].AddFavoriteMovie(Movie.movies[index]);
+                    User.userDatabase[User.loggedInUser].AddFavoriteMovie(Movie.movies[index]);
                     MessageBox.Show($"{movieTitle} added to favorites");
                 }
                 else
@@ -438,7 +441,7 @@ namespace MovieListingApp
         // only logout if regular user
         private void exitButton_Click(object sender, EventArgs e)
         {
-            if (User.users[User.loggedInUser].Admin)
+            if (User.userDatabase[User.loggedInUser].Admin)
             {
                 this.Close();
             }

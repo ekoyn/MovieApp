@@ -19,7 +19,7 @@ namespace MovieListingApp
             // ensure admin checkbox is only visible to an admin user
             if (User.loggedInUser != "")
             {
-                if (User.users[User.loggedInUser].Admin)
+                if (User.userDatabase[User.loggedInUser].Admin)
                 {
                     adminCB.Visible = true;
                 }
@@ -42,6 +42,7 @@ namespace MovieListingApp
             emailTB.Text = "";
             usernameTB.Text = "";
             passwordTB.Text = "";
+            adminCB.Checked = false;
         }
         
         // ensure all fields are filled
@@ -74,9 +75,10 @@ namespace MovieListingApp
             // ensure validation and set admin based on user choice or ability to create another admin
             if (ValidateInput() && User.loggedInUser != "")
             {
-                if (User.users[User.loggedInUser].Admin)
+                if (User.userDatabase[User.loggedInUser].Admin)
                 {
-                    User.users.Add(usernameReg, new User
+                    // create new user
+                    User.userDatabase.Add(usernameReg, new User
                     (
                         usernameReg,
                         passwordReg,
@@ -96,7 +98,8 @@ namespace MovieListingApp
                 }
                 else
                 {
-                    User.users.Add(usernameReg, new User
+                    // create new user
+                    User.userDatabase.Add(usernameReg, new User
                     (
                         usernameReg,
                         passwordReg,
@@ -117,7 +120,8 @@ namespace MovieListingApp
             }
             else if (ValidateInput())
             {
-                User.users.Add(usernameReg, new User
+                // create new user
+                User.userDatabase.Add(usernameReg, new User
                 (
                     usernameReg,
                     passwordReg,
